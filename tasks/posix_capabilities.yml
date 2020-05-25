@@ -1,6 +1,7 @@
 ---
 # file for roles/tasks/linenum.yml
-- name: "Copier le script posix_capabilities.sh dans /tmp"
+- debug: msg="++++++++++++++++++++++++ TASK - Copy script posix_capabilities.sh to /tmp ++++++++++++++++++++++++"
+- name: "Copy script posix_capabilities.sh to /tmp"
   become: True
   copy:
     src: ./roles/global_posix_capabilities_check/files/posix_capabilities.sh
@@ -8,10 +9,19 @@
     owner: "ransible"
     group: "users"
     mode: 0750
-
-- name: "Lancer script /tmp/posix_capabilities.sh"
+#-------------------------------------------
+- debug: msg="++++++++++++++++++++++++ TASK - Launch script /tmp/posix_capabilities.sh ++++++++++++++++++++++++"
+- name: "Launch script /tmp/posix_capabilities.sh"
   become: True
   shell: "/tmp/posix_capabilities.sh"
   args:
     chdir: /tmp
     executable: /bin/bash
+#-------------------------------------------
+- debug: msg="++++++++++++++++++++++++ TASK - Download report ++++++++++++++++++++++++"
+- name: download report
+  fetch:
+    src: /tmp/global_posix_capabilities_check.report.out
+    dest: ../_REPORTS/global_posix_capabilities_check/{{ inventory_hostname }}.out
+    flat: yes
+#-------------------------------------------

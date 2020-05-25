@@ -2,9 +2,9 @@
 #A script to collect security information from a Linux host
 version="version 1"
 
-report=/tmp/colsecinfo.report"-"`date +"%d-%m-%y"`
+report=/tmp/global_posix_capabilities_check.report.out
 export=/tmp
-format=$export/colsecinfo-export-`date +"%d-%m-%y"`
+format=$export/global_posix_capabilities_check-export
 
 header()
 {

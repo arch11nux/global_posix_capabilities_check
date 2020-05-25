@@ -2,4 +2,4 @@
 # defaults file for roles/rh8-security-features
 
 # vars : change TRUE /FALSE
-var_check_mode: yes
+# var_check_mode: yes
