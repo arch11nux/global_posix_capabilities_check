@@ -1,0 +1,17 @@
+---
+# file for roles/tasks/linenum.yml
+- name: "Copier le script posix_capabilities.sh dans /tmp"
+  become: True
+  copy:
+    src: ./roles/global_posix_capabilities_check/files/posix_capabilities.sh
+    dest: /tmp/posix_capabilities.sh
+    owner: "ransible"
+    group: "users"
+    mode: 0750
+
+- name: "Lancer script /tmp/posix_capabilities.sh"
+  become: True
+  shell: "/tmp/posix_capabilities.sh"
+  args:
+    chdir: /tmp
+    executable: /bin/bash

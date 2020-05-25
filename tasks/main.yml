@@ -1,0 +1,11 @@
+---
+# tasks file for roles/global_posix_capabilities_check
+#------------------------------------------- 
+- name: posix capabilities | CONFIGURING File Permissions and Masks
+  import_tasks: posix_capabilities.yml
+  tags:
+    - config_posix_capabilities
+    - global_posix_capabilities_check
+  ignore_errors: yes
+#-------------------------------------------
+...

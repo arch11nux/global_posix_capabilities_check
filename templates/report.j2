@@ -1,0 +1,45 @@
+***********************************************************************
+PATCH REPORT FOR {{ inventory_hostname }}
+DATE:  {{ ansible_date_time.date }}
+TIME: {{ ansible_date_time.time }}
+-----------------------------------------------------------------------
+{# Determine if selinux enable  #}
+{% if selinux_enforce.state == 'enforcing' %}
+  {% set selinux_message = "selinux is Enabled" %}
+  {% set selinux_message2 = "selinux is Enforced" %}
+{% else %}
+  {% set selinux_message = "selinux is NOT Enabled" %}
+  {% set selinux_message2 = "selinux is NOT Enforced" %}
+{% endif %}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Vendor:               {{ ansible_system_vendor }}
+Server Type:          {{ ansible_product_name }}
+O/S Distribution:     {{ ansible_distribution }}
+O/S version:          {{ hostvars[inventory_hostname].ansible_distribution_version }}
+----------->          {{ result_os_version.stdout }}
+Kernel rev:           {{ ansible_kernel }}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+fapolicyd | CONFIGURING APPLICATION WHITELISTS
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+fapolicyd installation = {{ yum_fapolicyd_output.msg }}
+fapolicyd service = {{ service_fapolicyd_output.state }}
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  SELINUX
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### Display selinux service STATUS  ###
+{{ selinux_message }}
+{{ selinux_message2 }}
+
+### TASK: Enable SELinux - CCE-27334-2 ###
+state = {{ selinux_enforce.state }}
+policy = {{ selinux_enforce.policy }}
+reboot_required = {{ selinux_enforce.reboot_required }}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+************ END REPORT FOR {{ inventory_hostname }}
