@@ -32,7 +32,7 @@ interesting_files()
 echo -e "\e[00;33m### Posix Capabilities FILES ####################################\e[00m" 
 
 #list all files with POSIX capabilities set along with there capabilities
-fileswithcaps=`getcap -r / 2>/dev/null | sed 's/=/+/g' | awk -F"+" 'BEGIN {printf "%-30s %-16s %-16s\n", "Nom Capability", "Posix capability", "file capability"}{printf "%-30s %-16s %-16s\n", $2,$3,$1}'`
+fileswithcaps=`getcap -r / 2>/dev/null | sed 's/=/+/g' | awk -F"+" 'BEGIN {printf "%-30s %-16s %-16s\n", "CAP", "SET", "FILENAME"}{printf "%-30s %-16s %-16s\n", $2,$3,$1}'`
 if [ "$fileswithcaps" ]; then
   echo -e "\e[00;31m[+] Files with POSIX capabilities set:\e[00m\n$fileswithcaps"
   echo -e "\n"
