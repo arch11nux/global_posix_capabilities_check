@@ -82,11 +82,14 @@ fi
 information()
 {
 echo -e "\e[00;33m------------------------------------------------------------\e[00m"
-echo -e "There are 3 modes:"
-echo -e " e: Effective = This means the capability is “activated”."
-echo -e " p: Permitted = This means the capability can be used/is allowed."
-echo -e " i: Inherited = The capability is kept by child/subprocesses upon execve() for example."
-echo -e "*** Capabilities blank or empty (danger) ***"
+echo -e "\e[00;35mThere are 3 modes:"
+echo -e " \e[00;35me: Effective = This means the capability is “activated”."
+echo -e " \e[00;35mp: Permitted = This means the capability can be used/is allowed."
+echo -e " \e[00;35mi: Inherited = The capability is kept by child/subprocesses upon execve() for example."
+echo -e "\e[00;33m------------------------------------------------------------\e[00m"
+echo -e "--->>> Capabilities blank or empty \e[00;33m( D A N G E R ) <<<---"
+echo -e " \e[00;35m Exemple: \e[00;34m/home/user/openssl \e[00;33m =ep"
+echo -e "\e[00;33m------------------------------------------------------------\e[00m"
 
 }
 
