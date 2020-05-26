@@ -27,13 +27,12 @@ fi
 
 }
 
-
 interesting_files()
 {
-echo -e "\e[00;33m### INTERESTING FILES ####################################\e[00m" 
+echo -e "\e[00;33m### Posix Capabilities FILES ####################################\e[00m" 
 
 #list all files with POSIX capabilities set along with there capabilities
-fileswithcaps=`getcap -r / 2>/dev/null || /sbin/getcap -r / 2>/dev/null`
+fileswithcaps=`getcap -r / 2>/dev/null | sed 's/=/+/g' | awk -F"+" 'BEGIN {printf "%-30s %-16s %-16s\n", "Nom Capability", "Posix capability", "file capability"}{printf "%-30s %-16s %-16s\n", $2,$3,$1}'`
 if [ "$fileswithcaps" ]; then
   echo -e "\e[00;31m[+] Files with POSIX capabilities set:\e[00m\n$fileswithcaps"
   echo -e "\n"
@@ -80,6 +79,17 @@ fi
 
 }
 
+information()
+{
+echo -e "\e[00;33m------------------------------------------------------------\e[00m"
+echo -e "There are 3 modes:"
+echo -e " e: Effective = This means the capability is “activated”."
+echo -e " p: Permitted = This means the capability can be used/is allowed."
+echo -e " i: Inherited = The capability is kept by child/subprocesses upon execve() for example."
+echo -e "*** Capabilities blank or empty (danger) ***"
+
+}
+
 footer()
 {
 echo -e "\e[00;33m### SCAN COMPLETE ####################################\e[00m" 
@@ -90,6 +100,7 @@ call_each()
   header
   system_info
   interesting_files
+  information
   footer
 }
 

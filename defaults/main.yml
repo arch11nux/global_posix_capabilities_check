@@ -1,5 +1,2 @@
 ---
-# defaults file for roles/rh8-security-features
-
-# vars : change TRUE /FALSE
-# var_check_mode: yes
+# defaults file for roles/global_posix_capabilities_check
